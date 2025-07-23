@@ -1,11 +1,13 @@
 ## AgendaADA
 
 ### Este repo tem o objetivo de apresentar o projeto em grupo 6 do curso de Angular.
-> Integrantes:
+---
+#### Integrantes:
 - Rafael Yoshida 
 - Lucas Zoser
-- Bruno Favalli 
+- Bruno Favalli
 - Gabriel Silva
-- Janael Martins
+- Janael Martins
+---
 
 
