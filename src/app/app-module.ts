@@ -3,10 +3,18 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
+import { Formulario } from './lista-contatos/formulario/formulario';
+import { Lista } from './lista-contatos/lista/lista';
+import { ContatoItem } from './lista-contatos/contato-item/contato-item';
+import { ContatoPerfil } from './lista-contatos/contato-perfil/contato-perfil';
 
 @NgModule({
   declarations: [
-    App
+    App,
+    Formulario,
+    Lista,
+    ContatoItem,
+    ContatoPerfil
   ],
   imports: [
     BrowserModule,
