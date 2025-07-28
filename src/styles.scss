@@ -5,7 +5,25 @@
 // Learn more about theming and how to use it for your application's
 // custom components at https://material.angular.dev/guide/theming
 @use '@angular/material' as mat;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
 
+$primary-blue: #3A50E5;
+$text-dark: #212121;
+$text-light: #FFFFFF;
+$background-light: #FFFFFF;
+$background-grey: #F5F5F7;
+
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: $background-light;
+  color: $text-dark;
+}
+
+h1, h2, h3 {
+  font-weight: 700; // Bold
+}
 html {
   @include mat.theme((color: (primary: mat.$azure-palette,
         tertiary: mat.$blue-palette,
