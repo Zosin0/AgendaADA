@@ -2,4 +2,9 @@
   <div class="profile-display-area">
     <app-contato-perfil *ngIf="meuContatoFicticio" [contato]="meuContatoFicticio"></app-contato-perfil>
   </div>
+
+<button (click)="abrirModalDeCadastro()" type="button" class="btn btn-success d-flex align-items-center">
+  <span class="material-icons me-1">add</span>Cadastar nova tarefa
+</button>
+
 </main>
