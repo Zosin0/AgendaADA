@@ -1,0 +1,44 @@
+{
+  "contacts": [
+    {
+      "id": "1",
+      "nome": "Janael Martins",
+      "email": "janaelmartins@gmail.com",
+      "telefone": "81999986892",
+      "dataNascimento": "1978-10-22",
+      "whatsapp": "+5581999986892"
+    },
+    {
+      "id": "2",
+      "nome": "Lucas Zoser",
+      "email": "lucas@email.com",
+      "telefone": "6199695902",
+      "dataNascimento": "1985-11-20",
+      "whatsapp": "+556199695902"
+    },
+    {
+      "id": "3",
+      "nome": "Bruno Favalli",
+      "email": "bruno.favalli@email.com",
+      "telefone": "12982506065",
+      "dataNascimento": "1992-03-10",
+      "whatsapp": "+5512982506065"
+    },
+    {
+      "id": "4",
+      "nome": "Gabriel Silva",
+      "email": "gabrielsilva@email.com",
+      "telefone": "75988931318",
+      "dataNascimento": "1992-03-10",
+      "whatsapp": "+5575988931318"
+    },
+    {
+      "id": "5",
+      "nome": "Rafael Yoshida",
+      "email": "rafael@email.com",
+      "telefone": "11999784706",
+      "dataNascimento": "1992-03-10",
+      "whatsapp": "+5511999784706"
+    }
+  ]
+}
