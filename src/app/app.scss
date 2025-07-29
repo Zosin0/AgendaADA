@@ -7,14 +7,21 @@ $profile-text-muted: #B9BBBE;
   padding: 2rem 4rem;
   background-color: rgba(0, 0, 0, 0.1);
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  flex-direction: column;
+  gap: 2rem;
+  flex-wrap: wrap;
 
-  h1 {
+  .hub-title h1 {
     font-weight: 300;
     font-size: 2rem;
-    margin-bottom: 1rem;
+    margin: 0;
+  }
+
+  .hub-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
   }
 
   .search-bar {
@@ -30,7 +37,7 @@ $profile-text-muted: #B9BBBE;
 
     input {
       width: 100%;
-      max-width: 400px;
+      min-width: 300px;
       background-color: $profile-bg-light;
       border: 1px solid transparent;
       border-radius: 50px;
@@ -48,6 +55,19 @@ $profile-text-muted: #B9BBBE;
         border-color: $primary-blue;
         box-shadow: 0 0 10px rgba($primary-blue, 0.5);
       }
+    }
+  }
+
+  .sort-button {
+    color: $profile-text-muted;
+    transition: color 0.3s ease, transform 0.3s ease;
+
+    &.active {
+      color: $primary-blue;
+    }
+
+    &:hover {
+      transform: scale(1.1);
     }
   }
 }
@@ -100,5 +120,3 @@ $profile-text-muted: #B9BBBE;
     box-shadow: 0 4px 20px rgba($primary-blue, 0.4);
   }
 }
-
-

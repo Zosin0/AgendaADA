@@ -1,15 +1,31 @@
 <header class="communication-hub">
-  <h1>Communication HUB</h1>
-  <div class="search-bar">
-    <span class="material-icons">search</span>
-    <input type="text" placeholder="Pesquisar contatos...">
+  <div class="hub-title">
+    <h1>Communication HUB</h1>
+  </div>
+  <div class="hub-actions">
+    <div class="search-bar">
+      <span class="material-icons">search</span>
+      <input type="text" placeholder="Pesquisar contatos...">
+    </div>
+    <button mat-icon-button class="sort-button"
+            (click)="toggleSort()"
+            [matTooltip]="(sortOrder$ | async) === 'asc' ? 'Ordenado A-Z' : (sortOrder$ | async) === 'desc' ? 'Ordenado Z-A' : 'Sem ordenação'"
+            [class.active]="(sortOrder$ | async) !== 'none'">
+      <mat-icon>sort_by_alpha</mat-icon>
+    </button>
   </div>
 </header>
 
 <main class="contacts-section">
-  <ng-container *ngIf="contatos$ | async as contatos; else loading">
+  <ng-container *ngIf="sortedContatos$ | async as contatos; else loading">
     <div *ngIf="contatos.length > 0; else emptyState" class="contacts-grid">
-      <app-contato-item *ngFor="let contato of contatos" [contato]="contato"></app-contato-item>
+      <app-contato-item
+        *ngFor="let contato of contatos"
+        [contato]="contato"
+        (viewProfile)="abrirPerfil($event)"
+        (editContact)="abrirFormularioEdicao($event)"
+        (deleteContact)="confirmarExclusao($event)">
+      </app-contato-item>
     </div>
   </ng-container>
 
@@ -29,7 +45,7 @@
 </main>
 
 
-<button (click)="abrirModalDeCadastro()" type="button" class="fab-add" mat-fab color="primary"
+<button (click)="abrirFormularioCadastro()" type="button" class="fab-add" mat-fab color="primary"
   aria-label="Cadastrar novo contato">
   <span class="material-icons">add</span>
 </button>

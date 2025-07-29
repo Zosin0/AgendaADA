@@ -1,129 +1,100 @@
-@import '../../../styles.scss';
-
-$primary-blue: #0642ff;
-$profile-bg: #222831;
-$profile-bg-light: #393E46;
-$profile-text: #EEEEEE;
-$profile-text-muted: #B9BBBE;
-
 :host {
   display: block;
+  background-color: #222831;
+  color: #EEEEEE;
+  border-radius: 16px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+  border: 1px solid #393E46;
 }
 
 .profile-card {
-  background: linear-gradient(150deg, $profile-bg 0%, darken($primary-blue, 25%) 150%);
-  color: $profile-text;
-  border-radius: 12px;
-  padding: 24px;
-  width: 340px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-  border-top: 4px solid $primary-blue;
-  font-family: 'Poppins', sans-serif;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(6, 42, 255, 0.2);
-  }
-}
-
-.profile-header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  padding: 1.5rem;
   text-align: center;
-  padding-bottom: 20px;
-  border-bottom: 1px solid $profile-bg-light;
 }
 
-.avatar {
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
-  border: 4px solid $primary-blue;
-  margin-bottom: 12px;
-  background-color: $profile-bg-light;
-}
-
-.profile-info {
-  .name {
-    margin: 0;
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: #FFFFFF;
-    line-height: 1.2;
-  }
-  .email {
-    margin: 4px 0 0 0;
-    font-size: 0.875rem;
-    color: $profile-text-muted;
-    word-break: break-all;
-  }
-}
-
-.connections {
-  margin-top: 20px;
-}
-
-.connections-title {
-  color: $primary-blue;
-  font-size: 0.8rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  margin-bottom: 12px;
-  text-align: center;
-  letter-spacing: 1px;
-}
-
-.connections-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.profile-actions-header {
   display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
+  justify-content: flex-end;
+  margin-bottom: -2.5rem;
+  margin-right: -1rem;
 
-.connection-item {
-  border-radius: 8px;
-  background-color: $profile-bg-light;
-  transition: all 0.2s ease-in-out;
-
-  a {
-    display: flex;
-    align-items: center;
-    padding: 12px;
-    text-decoration: none;
-    color: $profile-text;
-  }
-
-  &:hover {
-    background-color: lighten($profile-bg-light, 5%);
-    transform: translateX(5px);
-    .connection-icon {
-      color: $primary-blue;
+  button {
+    color: #B9BBBE;
+    &:hover {
+      color: #0642FF;
     }
   }
 }
 
-.connection-icon {
-  width: 24px;
-  height: 24px;
-  margin-right: 12px;
-  color: $profile-text-muted;
-  transition: color 0.2s ease-in-out;
+.profile-header {
+  .profile-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: #0642FF;
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    border: 4px solid #393E46;
+  }
+
+  .profile-name {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .profile-email {
+    color: #B9BBBE;
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
 }
 
-.connection-name {
-  flex-grow: 1;
-  font-weight: 500;
-}
+.profile-connections {
+  .connections-title {
+    color: #0642FF;
+    font-weight: bold;
+    font-size: 0.8rem;
+    letter-spacing: 1.5px;
+    margin-bottom: 1rem;
+  }
 
-.external-link-icon {
-  color: $profile-text-muted;
-  opacity: 0.7;
-}
+  .connection-button {
+    display: flex;
+    align-items: center;
+    background-color: #393E46;
+    color: #EEEEEE;
+    text-decoration: none;
+    padding: 0.9rem;
+    border-radius: 12px;
+    margin-bottom: 0.8rem;
+    transition: all 0.2s ease-in-out;
+    font-weight: 500;
 
-.status {
-  display: none;
+    &:hover {
+      background-color: lighten(#393E46, 5%);
+      transform: scale(1.02);
+    }
+
+    img, mat-icon:first-child {
+      width: 24px;
+      height: 24px;
+      margin-right: 1rem;
+    }
+
+    span {
+      flex-grow: 1;
+      text-align: left;
+    }
+
+    mat-icon:last-child {
+      color: #B9BBBE;
+      font-size: 1.2rem;
+    }
+  }
 }

@@ -1,1 +1,64 @@
-<p>Testing</p>
+<div class="profile-card">
+  <div class="profile-actions-header">
+    <button mat-icon-button (click)="editarPerfil()" aria-label="Editar Perfil">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-icon-button (click)="excluirPerfil()" aria-label="Excluir Perfil">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
+
+  <div class="profile-header">
+    <div class="profile-avatar">
+      <span>{{ getIniciais() }}</span>
+    </div>
+    <h2 class="profile-name">{{ contato.nome }}</h2>
+    <p class="profile-email">{{ contato.email }}</p>
+  </div>
+
+  <div class="profile-connections">
+    <h3 class="connections-title">CONEXÕES</h3>
+
+    <a *ngIf="contato.telefone" [href]="'https://wa.me/' + contato.telefone" target="_blank" class="connection-button">
+      <img src="https://img.icons8.com/color/48/whatsapp.png" alt="WhatsApp"/>
+      <span>+{{ contato.telefone }}</span>
+      <mat-icon>open_in_new</mat-icon>
+    </a>
+
+    <a *ngIf="contato.telefone" [href]="'tel:' + contato.telefone" class="connection-button">
+      <mat-icon>call</mat-icon>
+      <span>+{{ contato.telefone }}</span>
+      <mat-icon>open_in_new</mat-icon>
+    </a>
+
+    <a *ngIf="contato.email" [href]="'https://mail.google.com/mail/?view=cm&fs=1&to=' + contato.email" target="_blank" class="connection-button">
+      <img src="https://img.icons8.com/color/48/gmail-new.png" alt="Gmail"/>
+      <span>Abrir no Gmail</span>
+      <mat-icon>open_in_new</mat-icon>
+    </a>
+
+    <a *ngIf="contato.email" [href]="'mailto:' + contato.email" class="connection-button">
+      <mat-icon>email</mat-icon>
+      <span>Abrir app padrão</span>
+      <mat-icon>open_in_new</mat-icon>
+    </a>
+
+    <a *ngIf="contato.email" [href]="'https://teams.microsoft.com/l/chat/0/0?users=' + contato.email" target="_blank" class="connection-button">
+      <img src="https://img.icons8.com/?size=100&id=68803&format=png&color=000000" alt="Teams"/>
+      <span>Iniciar chat</span>
+      <mat-icon>open_in_new</mat-icon>
+    </a>
+
+    <a *ngIf="contato.nome" [href]="'https://www.linkedin.com/search/results/all/?keywords=' + contato.nome" target="_blank" class="connection-button">
+      <img src="https://img.icons8.com/color/48/linkedin.png" alt="LinkedIn"/>
+      <span>Buscar "{{ contato.nome }}"</span>
+      <mat-icon>open_in_new</mat-icon>
+    </a>
+
+    <a *ngIf="contato.nome" [href]="'https://github.com/search?q=' + contato.nome.split(' ')[0]" target="_blank" class="connection-button">
+      <img src="https://img.icons8.com/ios-filled/50/EEEEEE/github.png" alt="GitHub"/>
+      <span>Buscar por "{{ contato.nome.split(' ')[0] }}"</span>
+      <mat-icon>open_in_new</mat-icon>
+    </a>
+  </div>
+</div>
