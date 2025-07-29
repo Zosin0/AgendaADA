@@ -1,1 +1,104 @@
 $primary-blue: #0642ff;
+$profile-bg-light: #393E46;
+$profile-text: #EEEEEE;
+$profile-text-muted: #B9BBBE;
+
+.communication-hub {
+  padding: 2rem 4rem;
+  background-color: rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  h1 {
+    font-weight: 300;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .search-bar {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    .material-icons {
+      position: absolute;
+      left: 15px;
+      color: $profile-text-muted;
+    }
+
+    input {
+      width: 100%;
+      max-width: 400px;
+      background-color: $profile-bg-light;
+      border: 1px solid transparent;
+      border-radius: 50px;
+      padding: 0.75rem 1rem 0.75rem 3rem;
+      color: $profile-text;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+
+      &::placeholder {
+        color: $profile-text-muted;
+      }
+
+      &:focus {
+        outline: none;
+        border-color: $primary-blue;
+        box-shadow: 0 0 10px rgba($primary-blue, 0.5);
+      }
+    }
+  }
+}
+
+.contacts-section {
+  padding: 2rem 4rem;
+}
+
+.contacts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: 1.5rem;
+}
+
+.empty-state, .loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5rem;
+  color: $profile-text-muted;
+  text-align: center;
+
+  .empty-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    font-size: 1.2rem;
+    margin: 0.25rem;
+  }
+
+  .muted {
+    font-size: 1rem;
+    color: darken($profile-text-muted, 15%);
+  }
+}
+
+
+.fab-add {
+  position: fixed !important;
+  bottom: 40px;
+  right: 40px;
+  background-color: $primary-blue;
+  color: white;
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 20px rgba($primary-blue, 0.4);
+  }
+}
+
+

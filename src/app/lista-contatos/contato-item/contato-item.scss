@@ -1,0 +1,80 @@
+$primary-blue: #0642ff;
+$profile-bg-light: #393E46;
+$profile-text: #EEEEEE;
+$profile-text-muted: #B9BBBE;
+
+:host {
+  display: block;
+}
+
+.contact-card {
+  display: flex;
+  align-items: center;
+  background-color: $profile-bg-light;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  transition: all 0.3s ease-in-out;
+  border: 1px solid transparent;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    border-color: rgba($primary-blue, 0.6);
+  }
+}
+
+.contact-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, $primary-blue, darken($primary-blue, 20%));
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-right: 1.5rem;
+  flex-shrink: 0;
+}
+
+.contact-info {
+  flex-grow: 1;
+  min-width: 0;
+
+  .contact-name {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: $profile-text;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .contact-email {
+    font-size: 0.9rem;
+    color: $profile-text-muted;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.contact-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: 1rem;
+
+  .icon-button {
+    color: $profile-text-muted;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: $primary-blue;
+    }
+  }
+}

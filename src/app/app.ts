@@ -1,6 +1,11 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, OnInit } from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Formulario } from './lista-contatos/formulario/formulario';
+// add do service para buscar contatos
+import { Contato } from './core/models/contato.model';
+import { ContatoService } from './core/contato-service';
+import { Observable } from 'rxjs';
+
 
 @Component({
   selector: 'app-root',
@@ -8,14 +13,24 @@ import { Formulario } from './lista-contatos/formulario/formulario';
   standalone: false,
   styleUrl: './app.scss',
 })
-export class App {
+
+export class App implements OnInit {
   protected readonly title = signal('AgendaADA');
 
-
-
   constructor(
+    private contatoService: ContatoService,
     private modalService: NgbModal,
   ) { }
+
+  contatos$!: Observable<Contato[]>;
+
+  ngOnInit(): void {
+    this.carregarContatos();
+  }
+
+  carregarContatos() {
+    this.contatos$ = this.contatoService.getContatos();
+  }
 
   abrirModalDeCadastro() {
     const modalRef: NgbModalRef = this.modalService.open(Formulario, {

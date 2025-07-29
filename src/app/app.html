@@ -1,3 +1,35 @@
-<button (click)="abrirModalDeCadastro()" type="button" class="btn btn-success d-flex align-items-center">
-  <span class="material-icons me-1">add</span>Cadastar nova tarefa
+<header class="communication-hub">
+  <h1>Communication HUB</h1>
+  <div class="search-bar">
+    <span class="material-icons">search</span>
+    <input type="text" placeholder="Pesquisar contatos...">
+  </div>
+</header>
+
+<main class="contacts-section">
+  <ng-container *ngIf="contatos$ | async as contatos; else loading">
+    <div *ngIf="contatos.length > 0; else emptyState" class="contacts-grid">
+      <app-contato-item *ngFor="let contato of contatos" [contato]="contato"></app-contato-item>
+    </div>
+  </ng-container>
+
+  <ng-template #emptyState>
+    <div class="empty-state">
+      <span class="material-icons empty-icon">person_add</span>
+      <p>Nenhum contato encontrado.</p>
+      <p class="muted">Comece adicionando um novo no botão +</p>
+    </div>
+  </ng-template>
+
+  <ng-template #loading>
+    <div class="loading-state">
+      <p>Carregando contatos...</p>
+    </div>
+  </ng-template>
+</main>
+
+
+<button (click)="abrirModalDeCadastro()" type="button" class="fab-add" mat-fab color="primary"
+  aria-label="Cadastrar novo contato">
+  <span class="material-icons">add</span>
 </button>
