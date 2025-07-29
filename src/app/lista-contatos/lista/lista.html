@@ -1,1 +1,19 @@
-<p>lista works!</p>
+<div class="container">
+    <input
+      type="text"
+      placeholder="Pesquisar por qualquer campo..."
+      [(ngModel)]="filtro"
+      (input)="filtrarContatos()"
+      class="campo-pesquisa"
+    />
+
+    <ul class="lista-contatos">
+      <li *ngFor="let contato of contatosFiltrados" class="item-contato">
+        <h3>{{ contato.nome }}</h3>
+        <p><strong>Telefone:</strong> {{ contato.telefone }}</p>
+        <p><strong>Email:</strong> {{ contato.email }}</p>
+        <p><strong>Data de Nascimento:</strong> {{ contato.dataNascimento | date:'dd/MM/yyyy' }}</p>
+        <button (click)="abrirWhatsApp(contato.whatsapp)">WhatsApp</button>
+      </li>
+    </ul>
+  </div>
