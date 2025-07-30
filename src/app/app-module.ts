@@ -19,6 +19,11 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatIconModule } from '@angular/material/icon';
+
+import { FormsModule } from '@angular/forms';
+import { provideHttpClient } from '@angular/common/http';
+import { MatTabsModule } from '@angular/material/tabs';
 
 registerLocaleData(localePt);
 
@@ -38,7 +43,7 @@ export const MY_DATE_FORMATS = {
     Formulario,
     Lista,
     ContatoItem,
-    ContatoPerfil
+    ContatoPerfil,
   ],
   imports: [
     BrowserModule,
@@ -52,11 +57,15 @@ export const MY_DATE_FORMATS = {
     BrowserAnimationsModule,
     MatTooltipModule,
     MatNativeDateModule,
-    NgxMaskDirective
+    NgxMaskDirective,
+    FormsModule,
+    MatIconModule,
+    MatTabsModule
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideNgxMask(),
+    provideHttpClient(),
     DatePipe,
     { provide: LOCALE_ID, useValue: 'pt-BR' },
     { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },

@@ -1,32 +1,61 @@
-<div class="profile-card" *ngIf="contato">
+<div class="profile-card">
+  <div class="profile-actions-header">
+    <button mat-icon-button (click)="excluirPerfil()" aria-label="Excluir Perfil">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
 
   <div class="profile-header">
-    <div class="avatar-container">
-      <img [src]="contato.avatarUrl || 'assets/default-avatar.png'" alt="Avatar de {{ contato.nome }}" class="avatar">
-      <span class="status online"></span>
+    <div class="profile-avatar">
+      <span>{{ getIniciais() }}</span>
     </div>
-    <div class="profile-info">
-      <h2 class="name">{{ contato.nome }}</h2>
-      <p class="email">{{ contato.email }}</p>
-    </div>
+    <h2 class="profile-name">{{ contato.nome }}</h2>
+    <p class="profile-email">{{ contato.email }}</p>
   </div>
 
-  <div class="connections">
-    <h3 class="connections-title">Conexões</h3>
-    <ul class="connections-list">
+  <div class="profile-connections">
+    <h3 class="connections-title">CONEXÕES</h3>
 
-      <li class="connection-item" *ngFor="let conexao of contato.conexoes">
-        <a [href]="conexao.url" target="_blank" rel="noopener noreferrer">
-          <img [src]="conexao.iconUrl" [alt]="conexao.servico" class="connection-icon">
-          <span class="connection-name">{{ conexao.usuario }}</span>
-          <svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="M5 3v2h11.293L4.146 17.146l1.414 1.414L17.707 6.414V18h2V3z"/></svg>
-        </a>
-      </li>
+    <a *ngIf="contato.celular" [href]="'https://wa.me/' + contato.celular" target="_blank" class="connection-button">
+      <img src="https://img.icons8.com/color/48/whatsapp.png" alt="WhatsApp"/>
+      <span>+{{ contato.celular }}</span>
+      <mat-icon>open_in_new</mat-icon>
+    </a>
 
-      <li class="no-connections-found" *ngIf="!contato.conexoes || contato.conexoes.length === 0">
-        Nenhuma conexão automática encontrada.
-      </li>
-    </ul>
+    <a *ngIf="contato.celular" [href]="'tel:' + contato.celular" class="connection-button">
+      <mat-icon>call</mat-icon>
+      <span>+{{ contato.celular }}</span>
+      <mat-icon>open_in_new</mat-icon>
+    </a>
+
+    <a *ngIf="contato.email" [href]="'https://mail.google.com/mail/?view=cm&fs=1&to=' + contato.email" target="_blank" class="connection-button">
+      <img src="https://img.icons8.com/color/48/gmail-new.png" alt="Gmail"/>
+      <span>Abrir no Gmail</span>
+      <mat-icon>open_in_new</mat-icon>
+    </a>
+
+    <a *ngIf="contato.email" [href]="'mailto:' + contato.email" class="connection-button">
+      <mat-icon>email</mat-icon>
+      <span>Abrir app padrão</span>
+      <mat-icon>open_in_new</mat-icon>
+    </a>
+
+    <a *ngIf="contato.email" [href]="'https://teams.microsoft.com/l/chat/0/0?users=' + contato.email" target="_blank" class="connection-button">
+      <img src="https://img.icons8.com/?size=100&id=68803&format=png&color=000000" alt="Teams"/>
+      <span>Iniciar chat</span>
+      <mat-icon>open_in_new</mat-icon>
+    </a>
+
+    <a *ngIf="contato.nome" [href]="'https://www.linkedin.com/search/results/all/?keywords=' + contato.nome" target="_blank" class="connection-button">
+      <img src="https://img.icons8.com/color/48/linkedin.png" alt="LinkedIn"/>
+      <span>Buscar "{{ contato.nome }}"</span>
+      <mat-icon>open_in_new</mat-icon>
+    </a>
+
+    <a *ngIf="contato.nome" [href]="'https://github.com/search?q=' + contato.nome.split(' ')[0]" target="_blank" class="connection-button">
+      <img src="https://img.icons8.com/ios-filled/50/EEEEEE/github.png" alt="GitHub"/>
+      <span>Buscar por "{{ contato.nome.split(' ')[0] }}"</span>
+      <mat-icon>open_in_new</mat-icon>
+    </a>
   </div>
-
 </div>

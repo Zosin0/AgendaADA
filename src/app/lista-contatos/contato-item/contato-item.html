@@ -1,1 +1,19 @@
-<p>contato-item works!</p>
+<div class="contact-card" (click)="onViewProfile()">
+  <div class="contact-avatar">
+    <span>{{ getIniciais() }}</span>
+  </div>
+
+  <div class="contact-info">
+    <p class="contact-name">{{ contato.nome }}</p>
+    <p class="contact-email">{{ contato.email }}</p>
+  </div>
+
+  <div class="contact-actions">
+    <button class="icon-button" mat-icon-button (click)="onEdit($event)" aria-label="Editar contato">
+      <span class="material-icons">edit</span>
+    </button>
+    <button class="icon-button" mat-icon-button (click)="onDelete($event)" aria-label="Excluir contato">
+      <span class="material-icons">delete</span>
+    </button>
+  </div>
+</div>

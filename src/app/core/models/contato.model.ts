@@ -1,8 +1,7 @@
 export interface Contato {
-  id: string;
+  id: string | undefined ;
   nome: string;
+  celular: string;
   email: string;
-  telefone: string;
   dataNascimento: string;
-  whatsapp: string;
 }

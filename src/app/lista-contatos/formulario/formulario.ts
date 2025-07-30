@@ -1,8 +1,10 @@
 import { DatePipe } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Optional } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Contato } from '../../shared/interface';
+import { Contato } from '../../core/models/contato.model';
+import { ContatoService } from '../../core/contato-service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-formulario',
@@ -13,10 +15,14 @@ import { Contato } from '../../shared/interface';
 export class Formulario {
 
   @Input() contatoParaEditar?: Contato;
+  @Input() id?: string;
 
   constructor(
-    protected activeModal: NgbActiveModal,
+    @Optional() protected activeModal: NgbActiveModal,
+    //protected activeModal: NgbActiveModal,
+    private toastrService: ToastrService,
     private fb: FormBuilder,
+    private ContatoService: ContatoService,
     private datePipe: DatePipe,
   ) { }
 
@@ -44,7 +50,6 @@ export class Formulario {
   private inicializarFormulario(): void {
     this.formulario = this.fb.group({
       nome: [null, [Validators.required, Validators.maxLength(30), Validators.minLength(1)]],
-      sobrenome: [null, [Validators.required, Validators.maxLength(70), Validators.minLength(1)]],
       celular: [null, [Validators.required]],
       dataNascimento: [null, [Validators.required]],
       email: [null, [Validators.required, Validators.email]],
@@ -54,16 +59,21 @@ export class Formulario {
   private popularFormularioComDados(): void {
     if (!this.contatoParaEditar) return;
 
-    const { nome, sobrenome, celular, dataNascimento, email } = this.contatoParaEditar;
+    const {
+      nome,
+      celular,
+      dataNascimento,
+      email,
+    } = this.contatoParaEditar;
 
     this.formulario.patchValue({
       nome: nome ?? '',
-      sobrenome: sobrenome ?? '',
       celular: celular ?? '',
       dataNascimento: new Date(dataNascimento),
-      email: email ?? ''
+      email: email ?? '',
     });
   }
+
 
 
   definirMensagemErro(campo: string): string | undefined {
@@ -93,12 +103,49 @@ export class Formulario {
   }
 
   definirTituloFormulario(): string {
-    return this.contatoParaEditar ? "Editar Contato" : "Criar Contato";
+    return this.contatoParaEditar && this.contatoParaEditar.id ? "Editar Contato" : "Criar Contato";
   }
 
   enviarDados(): void {
-    console.log(this.formatarData(this.formulario.get('dataNascimento')?.value));
-    console.log(this.formulario.get('nome')?.value);
-    // this.activeModal.close();
+
+    if (this.contatoParaEditar && this.contatoParaEditar.id) {
+      this.ContatoService.atualizarContato(this.formulario.value, this.contatoParaEditar.id).subscribe({
+        next: (contatoCriado) => {
+          // Sucesso
+          console.log('Contato editado com sucesso!', contatoCriado);
+          if (this.activeModal) {
+            this.activeModal.close(true);
+          }
+          this.toastrService.success('Contato editado com sucesso!');
+        },
+        error: (erro) => {
+
+          console.error('Erro ao editar contato:', erro);
+          this.toastrService.error(`Erro ao criar contato: ${erro}`);
+        },
+        complete: () => {
+          console.log('Requisição de edição de contato finalizada.');
+        }
+      });
+    } else {
+      this.ContatoService.criarContato(this.formulario.value).subscribe({
+        next: (contatoCriado) => {
+          // Sucesso
+          console.log('Contato criado com sucesso!', contatoCriado);
+          if (this.activeModal) {
+            this.activeModal.close(true);
+          }
+          this.toastrService.success('Contato criado com sucesso!');
+        },
+        error: (erro) => {
+
+          console.error('Erro ao criar contato:', erro);
+          this.toastrService.error(`Erro ao criar contato: ${erro}`);
+        },
+        complete: () => {
+          console.log('Requisição de criação de contato finalizada.');
+        }
+      });
+    }
   }
 }
