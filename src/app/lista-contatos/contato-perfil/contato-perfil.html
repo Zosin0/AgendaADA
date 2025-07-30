@@ -19,15 +19,15 @@
   <div class="profile-connections">
     <h3 class="connections-title">CONEXÕES</h3>
 
-    <a *ngIf="contato.telefone" [href]="'https://wa.me/' + contato.telefone" target="_blank" class="connection-button">
+    <a *ngIf="contato.celular" [href]="'https://wa.me/' + contato.celular" target="_blank" class="connection-button">
       <img src="https://img.icons8.com/color/48/whatsapp.png" alt="WhatsApp"/>
-      <span>+{{ contato.telefone }}</span>
+      <span>+{{ contato.celular }}</span>
       <mat-icon>open_in_new</mat-icon>
     </a>
 
-    <a *ngIf="contato.telefone" [href]="'tel:' + contato.telefone" class="connection-button">
+    <a *ngIf="contato.celular" [href]="'tel:' + contato.celular" class="connection-button">
       <mat-icon>call</mat-icon>
-      <span>+{{ contato.telefone }}</span>
+      <span>+{{ contato.celular }}</span>
       <mat-icon>open_in_new</mat-icon>
     </a>
 

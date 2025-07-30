@@ -2,7 +2,8 @@ import { DatePipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Contato } from '../../shared/interface';
+import { Contato } from '../../core/models/contato.model';
+import { ContatoService } from '../../core/contato-service';
 
 @Component({
   selector: 'app-formulario',
@@ -14,9 +15,20 @@ export class Formulario {
 
   @Input() contatoParaEditar?: Contato;
 
+  novoContato: Contato = {
+    id: '',
+    nome: '',
+    sobrenome: '',
+    celular: '',
+  email: '',
+  dataNascimento: ''
+
+  };
+
   constructor(
     protected activeModal: NgbActiveModal,
     private fb: FormBuilder,
+    private ContatoService: ContatoService,
     private datePipe: DatePipe,
   ) { }
 
@@ -100,5 +112,22 @@ export class Formulario {
     console.log(this.formatarData(this.formulario.get('dataNascimento')?.value));
     console.log(this.formulario.get('nome')?.value);
     // this.activeModal.close();
+    this.novoContato=this.formulario.value;
+ 
+    // Chama o método criarContato do serviço
+    this.ContatoService.criarContato(this.novoContato).subscribe({
+      next: (contatoCriado) => {
+        // Sucesso
+        console.log('Contato criado com sucesso!', contatoCriado);
+      
+      },
+      error: (erro) => {
+     
+        console.error('Erro ao criar contato:', erro);
+      },
+      complete: () => {
+        console.log('Requisição de criação de contato finalizada.');
+      }
+    });
   }
 }
