@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Contato } from './core/models/contato.model';
 import { ContatoService } from './core/contato-service';
 import { ContatoPerfil } from './lista-contatos/contato-perfil/contato-perfil';
+import { ToastrService } from 'ngx-toastr';
 
 type SortOrder = 'asc' | 'desc' | 'none';
 
@@ -43,6 +44,7 @@ export class App implements OnInit {
     private dialog: MatDialog,
     private contatoService: ContatoService,
     private modalService: NgbModal,
+    private toastrService: ToastrService,
   ) { }
 
   ngOnInit(): void {
@@ -97,6 +99,16 @@ export class App implements OnInit {
   }
 
   confirmarExclusao(contato: Contato): void {
-    console.log('Abrir modal de confirmação para excluir:', contato.nome);
+    if (contato.id) {
+      this.contatoService.deletarContato(contato.id).subscribe({
+        next: () => {
+          this.toastrService.success('Contato excluído com sucesso!');
+          this.carregarContatos();
+        },
+        error: (erro) => {
+          this.toastrService.error(`Erro ao excluir contato: ${erro}`);
+        }
+      });
+    }
   }
 }
