@@ -35,21 +35,11 @@ export class ContatoItem {
   }
 
   // @Gabriel - mexe nisso tambem, por favor
-  /**
-   * Chamado quando o botão de editar é clicado.
-   * Impede que o clique se propague para o card e emite o evento 'editContact'.
-   * @param event O evento do mouse para parar a propagação.
-   */
   onEdit(event: MouseEvent): void {
     event.stopPropagation();
     this.editContact.emit(this.contato);
   }
 
-  /**
-   * Chamado quando o botão de excluir é clicado.
-   * Impede que o clique se propague para o card e emite o evento 'deleteContact'.
-   * @param event O evento do mouse para parar a propagação.
-   */
   onDelete(event: MouseEvent): void {
     event.stopPropagation();
     this.deleteContact.emit(this.contato);

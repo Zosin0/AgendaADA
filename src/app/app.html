@@ -5,7 +5,10 @@
   <div class="hub-actions">
     <div class="search-bar">
       <span class="material-icons">search</span>
-      <input type="text" placeholder="Pesquisar contatos...">
+      <input
+        type="text"
+        placeholder="Pesquisar contatos..."
+        (input)="onFilterChange($event)">
     </div>
     <button mat-icon-button class="sort-button"
             (click)="toggleSort()"
@@ -31,9 +34,9 @@
 
   <ng-template #emptyState>
     <div class="empty-state">
-      <span class="material-icons empty-icon">person_add</span>
+      <span class="material-icons empty-icon">search_off</span>
       <p>Nenhum contato encontrado.</p>
-      <p class="muted">Comece adicionando um novo no botão +</p>
+      <p class="muted">Tente um termo de pesquisa diferente ou adicione um novo contato.</p>
     </div>
   </ng-template>
 
@@ -43,7 +46,6 @@
     </div>
   </ng-template>
 </main>
-
 
 <button (click)="abrirFormularioCadastro()" type="button" class="fab-add" mat-fab color="primary"
   aria-label="Cadastrar novo contato">

@@ -1,5 +1,4 @@
-import { Formulario } from './lista-contatos/formulario/formulario';
-import { Component, signal, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Observable, BehaviorSubject, combineLatest, map } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
@@ -7,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Contato } from './core/models/contato.model';
 import { ContatoService } from './core/contato-service';
 import { ContatoPerfil } from './lista-contatos/contato-perfil/contato-perfil';
+import { Formulario } from './lista-contatos/formulario/formulario';
 import { ToastrService } from 'ngx-toastr';
 
 type SortOrder = 'asc' | 'desc' | 'none';
@@ -22,24 +22,38 @@ export class App implements OnInit {
 
   private contatosSubject = new BehaviorSubject<Contato[]>([]);
   private sortOrderSubject = new BehaviorSubject<SortOrder>('none');
+  private filterSubject = new BehaviorSubject<string>('');
 
   sortOrder$ = this.sortOrderSubject.asObservable();
+
   sortedContatos$: Observable<Contato[]> = combineLatest([
     this.contatosSubject.asObservable(),
-    this.sortOrder$
+    this.sortOrder$,
+    this.filterSubject.asObservable()
   ]).pipe(
-    map(([contatos, sortOrder]) => {
+    map(([contatos, sortOrder, filterTerm]) => {
+      let filteredContatos = [...contatos];
+
+      if (filterTerm) {
+        const lowerCaseFilter = filterTerm.toLowerCase().trim();
+        filteredContatos = filteredContatos.filter(contato =>
+          Object.values(contato).some(valor =>
+            String(valor).toLowerCase().includes(lowerCaseFilter)
+          )
+        );
+      }
+
       if (sortOrder === 'asc') {
-        return [...contatos].sort((a, b) => a.nome.localeCompare(b.nome));
+        return filteredContatos.sort((a, b) => a.nome.localeCompare(b.nome));
       }
       if (sortOrder === 'desc') {
-        return [...contatos].sort((a, b) => b.nome.localeCompare(a.nome));
+        return filteredContatos.sort((a, b) => b.nome.localeCompare(a.nome));
       }
-      return contatos;
+
+      return filteredContatos;
     })
   );
 
-  // TODO: @Gabriel - ARRUMAR A LOGICA DE EDIÇÃO
   constructor(
     private dialog: MatDialog,
     private contatoService: ContatoService,
@@ -64,6 +78,12 @@ export class App implements OnInit {
     else this.sortOrderSubject.next('none');
   }
 
+
+  onFilterChange(event: Event): void {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.filterSubject.next(filterValue);
+  }
+
   abrirPerfil(contato: Contato): void {
     const dialogRef = this.dialog.open(ContatoPerfil, {
       width: '400px',
@@ -81,7 +101,6 @@ export class App implements OnInit {
   abrirFormularioCadastro(): void {
     this.abrirModalDeCadastro();
   }
-
 
   abrirModalDeCadastro(contato: Contato | null = null) {
     const modalRef: NgbModalRef = this.modalService.open(Formulario, {
