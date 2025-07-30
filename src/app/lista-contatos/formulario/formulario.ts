@@ -112,17 +112,19 @@ export class Formulario {
       this.ContatoService.atualizarContato(this.formulario.value, this.contatoParaEditar.id).subscribe({
         next: (contatoCriado) => {
           // Sucesso
-          console.log('Contato criado com sucesso!', contatoCriado);
-          this.activeModal.close(true);
-          this.toastrService.success('Contato criado com sucesso!');
+          console.log('Contato editado com sucesso!', contatoCriado);
+          if (this.activeModal) {
+            this.activeModal.close(true);
+          }
+          this.toastrService.success('Contato editado com sucesso!');
         },
         error: (erro) => {
 
-          console.error('Erro ao criar contato:', erro);
+          console.error('Erro ao editar contato:', erro);
           this.toastrService.error(`Erro ao criar contato: ${erro}`);
         },
         complete: () => {
-          console.log('Requisição de criação de contato finalizada.');
+          console.log('Requisição de edição de contato finalizada.');
         }
       });
     } else {
@@ -130,7 +132,9 @@ export class Formulario {
         next: (contatoCriado) => {
           // Sucesso
           console.log('Contato criado com sucesso!', contatoCriado);
-          this.activeModal.close(true);
+          if (this.activeModal) {
+            this.activeModal.close(true);
+          }
           this.toastrService.success('Contato criado com sucesso!');
         },
         error: (erro) => {

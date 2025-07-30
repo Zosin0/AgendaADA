@@ -65,10 +65,16 @@ export class App implements OnInit {
   }
 
   abrirPerfil(contato: Contato): void {
-    this.dialog.open(ContatoPerfil, {
+    const dialogRef = this.dialog.open(ContatoPerfil, {
       width: '400px',
       panelClass: 'profile-dialog-container',
       data: contato
+    });
+
+    dialogRef.afterClosed().subscribe((resultado) => {
+      if (resultado) {
+        this.carregarContatos();
+      }
     });
   }
 

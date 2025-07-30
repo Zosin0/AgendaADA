@@ -1,52 +1,12 @@
 {
   "contacts": [
     {
-      "id": "1",
-      "nome": "Janael",
-      "sobrenome": "Martins",
-      "email": "janaelmartins@gmail.com",
-      "celular": "81999986892",
-      "dataNascimento": "1978-10-22"
-    },
-    {
-      "id": "2",
-      "nome": "Lucas",
-      "sobrenome": "Zoser",
-      "email": "lucas@email.com",
-      "celular": "6199695902",
-      "dataNascimento": "1985-11-20"
-    },
-    {
-      "id": "3",
-      "nome": "Bruno",
-      "sobrenome": "Favalli",
-      "email": "bruno.favalli@email.com",
-      "celular": "12982506065",
-      "dataNascimento": "1992-03-10"
-    },
-    {
-      "id": "4",
-      "nome": "Gabriel",
-      "sobrenome": "Silva",
-      "email": "gabrielsilva@email.com",
-      "celular": "75988931318",
-      "dataNascimento": "1992-03-10"
-    },
-    {
       "id": "5",
       "nome": "Rafael",
       "sobrenome": "Yoshida",
       "celular": "11999784706",
       "email": "rafael@email.com",
       "dataNascimento": "1992-03-10"
-    },
-    {
-      "id": "6",
-      "nome": "Fulano",
-      "sobrenome": "gfs",
-      "celular": "5424525",
-      "email": "fsgkjh@kgjfks.com",
-      "dataNascimento": "1900-01-01"
     },
     {
       "id": "c660",
@@ -111,20 +71,6 @@
       "linkedinConexao": null,
       "teamsConexao": null,
       "githubConexao": null
-    },
-    {
-      "id": "1bbe",
-      "nome": "Gabriel Silva",
-      "celular": "75988931318",
-      "dataNascimento": "2025-07-17T03:00:00.000Z",
-      "email": "gcsprog@gmail.com",
-      "telefoneConexao": "",
-      "whatsappConexao": "",
-      "gmailConexao": "",
-      "emailPadraoConexao": "",
-      "linkedinConexao": "",
-      "teamsConexao": "",
-      "githubConexao": ""
     }
   ]
 }
