@@ -56,26 +56,45 @@ export class Formulario {
   private inicializarFormulario(): void {
     this.formulario = this.fb.group({
       nome: [null, [Validators.required, Validators.maxLength(30), Validators.minLength(1)]],
-      sobrenome: [null, [Validators.required, Validators.maxLength(70), Validators.minLength(1)]],
       celular: [null, [Validators.required]],
       dataNascimento: [null, [Validators.required]],
       email: [null, [Validators.required, Validators.email]],
+      telefoneConexao: [null],
+      whatsappConexao: [null],
+      gmailConexao: [null, [Validators.email, Validators.maxLength(255)]],
+      emailPadraoConexao: [null, [Validators.email, Validators.maxLength(255)]],
+      linkedinConexao: [null, [Validators.maxLength(255)]],
+      teamsConexao: [null, [Validators.maxLength(255)]],
+      githubConexao: [null, [Validators.maxLength(255)]],
     });
   }
 
   private popularFormularioComDados(): void {
     if (!this.contatoParaEditar) return;
 
-    const { nome, sobrenome, celular, dataNascimento, email } = this.contatoParaEditar;
+    const {
+      nome,
+      celular,
+      dataNascimento,
+      email,
+      conexoes
+    } = this.contatoParaEditar;
 
     this.formulario.patchValue({
       nome: nome ?? '',
-      sobrenome: sobrenome ?? '',
       celular: celular ?? '',
       dataNascimento: new Date(dataNascimento),
-      email: email ?? ''
+      email: email ?? '',
+      telefoneConexao: conexoes?.telefone ?? '',
+      whatsappConexao: conexoes?.whatsapp ?? '',
+      gmailConexao: conexoes?.gmail ?? '',
+      emailPadraoConexao: conexoes?.emailPadrao ?? '',
+      linkedinConexao: conexoes?.linkedin ?? '',
+      teamsConexao: conexoes?.teams ?? '',
+      githubConexao: conexoes?.github ?? ''
     });
   }
+
 
 
   definirMensagemErro(campo: string): string | undefined {
@@ -98,6 +117,10 @@ export class Formulario {
     }
 
     return undefined;
+  }
+
+  mostrarConexoes(): boolean {
+    return this.contatoParaEditar ? true : false;
   }
 
   definirToolTipBtnSalvar(): string | null {

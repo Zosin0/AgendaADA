@@ -23,6 +23,7 @@ import { MatIconModule } from '@angular/material/icon';
 
 import { FormsModule } from '@angular/forms';
 import { provideHttpClient } from '@angular/common/http';
+import { MatTabsModule } from '@angular/material/tabs';
 
 registerLocaleData(localePt);
 
@@ -59,6 +60,7 @@ export const MY_DATE_FORMATS = {
     NgxMaskDirective,
     FormsModule,
     MatIconModule,
+    MatTabsModule
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),

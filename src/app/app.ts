@@ -1,9 +1,9 @@
+import { Formulario } from './lista-contatos/formulario/formulario';
 import { Component, signal, OnInit } from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Observable, BehaviorSubject, combineLatest, map } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 
-import { Formulario } from './lista-contatos/formulario/formulario';
 import { Contato } from './core/models/contato.model';
 import { ContatoService } from './core/contato-service';
 import { ContatoPerfil } from './lista-contatos/contato-perfil/contato-perfil';
@@ -86,9 +86,11 @@ export class App implements OnInit {
     modalRef.componentInstance.contatoParaEditar = {
       nome: 'Fulano',
       celular: '(99) 99999-9999',
-      sobrenome: "Silva",
       email: "email@email.com",
-      dataNascimento: "2000-10-31"
+      dataNascimento: "2000-10-31",
+      conexoes: {
+        whatsapp: "shfjhsfh",
+      }
     };
   }
 

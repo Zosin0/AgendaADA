@@ -1,67 +1,132 @@
 <div class="modal-header">
-    <h5 class="modal-title">{{definirTituloFormulario()}}</h5>
-    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('fechar click')"></button>
+  <h5 class="modal-title">{{ definirTituloFormulario() }}</h5>
+  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('fechar click')"></button>
 </div>
 <div class="modal-body">
-    <form [formGroup]="formulario">
-        <div class="row mb-3">
-            <div class="col-6">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>Nome</mat-label>
-                    <input formControlName="nome" matInput placeholder="Digite o nome do contato" />
-                    <mat-error *ngIf="definirMensagemErro('nome')">
-                        {{definirMensagemErro('nome')}}
-                    </mat-error>
-                </mat-form-field>
-            </div>
-            <div class="col-6">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>Sobrenome</mat-label>
-                    <input formControlName="sobrenome" matInput placeholder="Digite o sobrenome do contato" />
-                    <mat-error *ngIf="definirMensagemErro('sobrenome')">
-                        {{definirMensagemErro('sobrenome')}}
-                    </mat-error>
-                </mat-form-field>
-            </div>
-        </div>
-        <div class="row mb-3">
-            <div class="col-6">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>Data de Nascimento</mat-label>
-                    <input matInput [matDatepicker]="picker" formControlName="dataNascimento" placeholder="dd/mm/aaaa"
-                        >
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                    <mat-error *ngIf="definirMensagemErro('dataNascimento')">
-                        {{definirMensagemErro('dataNascimento')}}
-                    </mat-error>
-                </mat-form-field>
-            </div>
-            <div class="col-6">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>Celular</mat-label>
-                    <input formControlName="celular" matInput placeholder="(99) 99999-9999" mask="(00) 00000-0000" />
-                    <mat-error *ngIf="definirMensagemErro('celular')">
-                        {{definirMensagemErro('celular')}}
-                    </mat-error>
-                </mat-form-field>
-            </div>
-        </div>
-        <div class="col-12">
+  <form [formGroup]="formulario">
+    <mat-tab-group>
+      <!-- Aba principal do formulário -->
+      <mat-tab label="Informações">
+        <div class="p-3">
+          <!-- Seus campos normais aqui -->
+          <div class="col-12 mb-3">
             <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Email</mat-label>
-                <input formControlName="email" matInput type="email" placeholder="Digite o email do contato" />
-                <mat-error *ngIf="definirMensagemErro('email')">
-                    {{definirMensagemErro('email')}}
-                </mat-error>
+              <mat-label>Nome</mat-label>
+              <input formControlName="nome" matInput placeholder="Digite o nome do contato" />
+              <mat-error *ngIf="definirMensagemErro('nome')">
+                {{definirMensagemErro('nome')}}
+              </mat-error>
             </mat-form-field>
+          </div>
+          <div class="row mb-3">
+            <div class="col-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Data de Nascimento</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="dataNascimento" placeholder="dd/mm/aaaa">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-error *ngIf="definirMensagemErro('dataNascimento')">
+                  {{definirMensagemErro('dataNascimento')}}
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Celular</mat-label>
+                <input formControlName="celular" matInput placeholder="(99) 99999-9999" mask="(00) 00000-0000" />
+                <mat-error *ngIf="definirMensagemErro('celular')">
+                  {{definirMensagemErro('celular')}}
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-12">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Email</mat-label>
+              <input formControlName="email" matInput type="email" placeholder="Digite o email do contato" />
+              <mat-error *ngIf="definirMensagemErro('email')">
+                {{definirMensagemErro('email')}}
+              </mat-error>
+            </mat-form-field>
+          </div>
         </div>
-    </form>
-</div>
-<div class="modal-footer">
+      </mat-tab>
+
+      <mat-tab label="Conexões" *ngIf="mostrarConexoes()">
+        <div class="p-3">
+          <div class="col-12 mb-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>WhatsApp</mat-label>
+              <input formControlName="whatsappConexao" matInput placeholder="Conexão do WhatsApp" />
+              <mat-error *ngIf="definirMensagemErro('whatsappConexao')">
+                {{definirMensagemErro('whatsappConexao')}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-12 mb-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Telefone</mat-label>
+              <input formControlName="telefoneConexao" matInput placeholder="Conexão do Telefone" />
+              <mat-error *ngIf="definirMensagemErro('telefoneConexao')">
+                {{definirMensagemErro('telefoneConexao')}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-12 mb-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Gmail</mat-label>
+              <input formControlName="gmailConexao" matInput placeholder="Conexão do Gmail" />
+              <mat-error *ngIf="definirMensagemErro('gmailConexao')">
+                {{definirMensagemErro('gmailConexao')}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-12 mb-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Email Padrão</mat-label>
+              <input formControlName="emailPadraoConexao" matInput placeholder="Conexão do Email Padrão" />
+              <mat-error *ngIf="definirMensagemErro('emailPadraoConexao')">
+                {{definirMensagemErro('emailPadraoConexao')}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-12 mb-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Teams</mat-label>
+              <input formControlName="teamsConexao" matInput placeholder="Conexão do Teams" />
+              <mat-error *ngIf="definirMensagemErro('teamsConexao')">
+                {{definirMensagemErro('teamsConexao')}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-12 mb-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>LinkedIn</mat-label>
+              <input formControlName="linkedinConexao" matInput placeholder="Conexão do LinkedIn" />
+              <mat-error *ngIf="definirMensagemErro('linkedinConexao')">
+                {{definirMensagemErro('linkedinConexao')}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-12 mb-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>GitHub</mat-label>
+              <input formControlName="githubConexao" matInput placeholder="Conexão do GitHub" />
+              <mat-error *ngIf="definirMensagemErro('githubConexao')">
+                {{definirMensagemErro('githubConexao')}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </form>
+  <div class="modal-footer">
     <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss('cancelar click')">Cancelar</button>
     <span [matTooltip]="definirToolTipBtnSalvar()" matTooltipPosition="above">
-        <button [disabled]="!formulario.valid" type="button" class="btn btn-primary"
-            (click)="enviarDados()">Cadastrar contato</button>
+      <button [disabled]="!formulario.valid" type="button" class="btn btn-primary" (click)="enviarDados()">
+        Salvar dados
+      </button>
     </span>
+  </div>
 </div>
