@@ -11,7 +11,31 @@ export class ContatoService {
 
   constructor(private http: HttpClient) {}
 
+  
+  criarContato(novoContato: Contato): Observable<Contato> {
+    console.log('Enviado contato para a API:', novoContato);
+    return this.http.post<Contato>(this.apiUrl, novoContato);
+  }
+
+  
   getContatos(): Observable<Contato[]> {
     return this.http.get<Contato[]>(this.apiUrl);
   }
+
+
+  getContatoById(id: string): Observable<Contato> {
+    return this.http.get<Contato>(`${this.apiUrl}/${id}`);
+  }
+
+ 
+  atualizarContato(contato: Contato): Observable<Contato> {
+    return this.http.put<Contato>(`${this.apiUrl}/${contato.id}`, contato);
+  }
+
+ 
+  deletarContato(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+
+
 }
