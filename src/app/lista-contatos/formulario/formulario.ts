@@ -1,9 +1,10 @@
 import { DatePipe } from '@angular/common';
-import { Component, Input, Optional } from '@angular/core';
+import { Component, EventEmitter, Input, Optional } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Contato } from '../../core/models/contato.model';
 import { ContatoService } from '../../core/contato-service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-formulario',
@@ -14,20 +15,12 @@ import { ContatoService } from '../../core/contato-service';
 export class Formulario {
 
   @Input() contatoParaEditar?: Contato;
-
-  novoContato: Contato = {
-    id: '',
-    nome: '',
-    sobrenome: '',
-    celular: '',
-  email: '',
-  dataNascimento: ''
-
-  };
+  @Input() id?: string;
 
   constructor(
     @Optional() protected activeModal: NgbActiveModal,
     //protected activeModal: NgbActiveModal,
+    private toastrService: ToastrService,
     private fb: FormBuilder,
     private ContatoService: ContatoService,
     private datePipe: DatePipe,
@@ -121,7 +114,7 @@ export class Formulario {
   }
 
   mostrarConexoes(): boolean {
-    return this.contatoParaEditar ? true : false;
+    return this.contatoParaEditar && this.contatoParaEditar.id ? true : false;
   }
 
   definirToolTipBtnSalvar(): string | null {
@@ -129,33 +122,45 @@ export class Formulario {
   }
 
   definirTituloFormulario(): string {
-    return this.contatoParaEditar ? "Editar Contato" : "Criar Contato";
+    return this.contatoParaEditar && this.contatoParaEditar.id ? "Editar Contato" : "Criar Contato";
   }
 
   enviarDados(): void {
-    console.log(this.formatarData(this.formulario.get('dataNascimento')?.value));
-    console.log(this.formulario.get('nome')?.value);
 
-    if (this.activeModal) {
-      this.activeModal.close();
+    if (this.contatoParaEditar && this.contatoParaEditar.id) {
+      this.ContatoService.atualizarContato(this.formulario.value, this.contatoParaEditar.id).subscribe({
+        next: (contatoCriado) => {
+          // Sucesso
+          console.log('Contato criado com sucesso!', contatoCriado);
+          this.activeModal.close(true);
+          this.toastrService.success('Contato criado com sucesso!');
+        },
+        error: (erro) => {
+
+          console.error('Erro ao criar contato:', erro);
+          this.toastrService.error(`Erro ao criar contato: ${erro}`);
+        },
+        complete: () => {
+          console.log('Requisição de criação de contato finalizada.');
+        }
+      });
+    } else {
+      this.ContatoService.criarContato(this.formulario.value).subscribe({
+        next: (contatoCriado) => {
+          // Sucesso
+          console.log('Contato criado com sucesso!', contatoCriado);
+          this.activeModal.close(true);
+          this.toastrService.success('Contato criado com sucesso!');
+        },
+        error: (erro) => {
+
+          console.error('Erro ao criar contato:', erro);
+          this.toastrService.error(`Erro ao criar contato: ${erro}`);
+        },
+        complete: () => {
+          console.log('Requisição de criação de contato finalizada.');
+        }
+      });
     }
-
-    this.novoContato=this.formulario.value;
-
-    // Chama o método criarContato do serviço
-    this.ContatoService.criarContato(this.novoContato).subscribe({
-      next: (contatoCriado) => {
-        // Sucesso
-        console.log('Contato criado com sucesso!', contatoCriado);
-
-      },
-      error: (erro) => {
-
-        console.error('Erro ao criar contato:', erro);
-      },
-      complete: () => {
-        console.log('Requisição de criação de contato finalizada.');
-      }
-    });
   }
 }

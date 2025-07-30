@@ -23,7 +23,7 @@
         *ngFor="let contato of contatos"
         [contato]="contato"
         (viewProfile)="abrirPerfil($event)"
-        (editContact)="abrirFormularioEdicao($event)"
+        (editContact)="abrirModalDeCadastro($event)"
         (deleteContact)="confirmarExclusao($event)">
       </app-contato-item>
     </div>

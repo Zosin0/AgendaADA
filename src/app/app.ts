@@ -75,7 +75,7 @@ export class App implements OnInit {
   }
 
 
-  abrirModalDeCadastro() {
+  abrirModalDeCadastro(contato: Contato | null = null) {
     const modalRef: NgbModalRef = this.modalService.open(Formulario, {
       size: 'lg',
       centered: true,
@@ -83,28 +83,17 @@ export class App implements OnInit {
       keyboard: false
     });
 
-    modalRef.componentInstance.contatoParaEditar = {
-      nome: 'Fulano',
-      celular: '(99) 99999-9999',
-      email: "email@email.com",
-      dataNascimento: "2000-10-31",
-      conexoes: {
-        whatsapp: "shfjhsfh",
-      }
-    };
-  }
+    if (contato) {
+      modalRef.componentInstance.contatoParaEditar = contato;
+    }
 
-  abrirFormularioEdicao(contato?: Contato): void {
-    const dialogRef = this.dialog.open(Formulario, {
-      width: '800px',
-      data: contato
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result === 'salvo') {
-        this.carregarContatos();
+    modalRef.result.then(
+      (resultado) => {
+        if (resultado) {
+          this.carregarContatos();
+        }
       }
-    });
+    );
   }
 
   confirmarExclusao(contato: Contato): void {

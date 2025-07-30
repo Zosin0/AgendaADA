@@ -28,8 +28,8 @@ export class ContatoService {
   }
 
  
-  atualizarContato(contato: Contato): Observable<Contato> {
-    return this.http.put<Contato>(`${this.apiUrl}/${contato.id}`, contato);
+  atualizarContato(contato: Contato, id: string): Observable<Contato> {
+    return this.http.put<Contato>(`${this.apiUrl}/${id}`, contato);
   }
 
  
