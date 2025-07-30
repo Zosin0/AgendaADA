@@ -86,10 +86,11 @@ export class App implements OnInit {
     modalRef.componentInstance.contatoParaEditar = {
       nome: 'Fulano',
       celular: '(99) 99999-9999',
-      sobrenome: "Silva",
       email: "email@email.com",
-      dataNascimento: "2000-10-31"
-
+      dataNascimento: "2000-10-31",
+      conexoes: {
+        whatsapp: "shfjhsfh",
+      }
     };
   }
 
