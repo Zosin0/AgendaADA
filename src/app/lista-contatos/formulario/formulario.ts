@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, Optional } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Contato } from '../../core/models/contato.model';
@@ -26,7 +26,8 @@ export class Formulario {
   };
 
   constructor(
-    protected activeModal: NgbActiveModal,
+    @Optional() protected activeModal: NgbActiveModal,
+    //protected activeModal: NgbActiveModal,
     private fb: FormBuilder,
     private ContatoService: ContatoService,
     private datePipe: DatePipe,
@@ -134,18 +135,22 @@ export class Formulario {
   enviarDados(): void {
     console.log(this.formatarData(this.formulario.get('dataNascimento')?.value));
     console.log(this.formulario.get('nome')?.value);
-    // this.activeModal.close();
+
+    if (this.activeModal) {
+      this.activeModal.close();
+    }
+
     this.novoContato=this.formulario.value;
- 
+
     // Chama o método criarContato do serviço
     this.ContatoService.criarContato(this.novoContato).subscribe({
       next: (contatoCriado) => {
         // Sucesso
         console.log('Contato criado com sucesso!', contatoCriado);
-      
+
       },
       error: (erro) => {
-     
+
         console.error('Erro ao criar contato:', erro);
       },
       complete: () => {
