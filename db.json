@@ -1,36 +1,6 @@
 {
   "contacts": [
     {
-      "id": "5",
-      "nome": "Rafael",
-      "sobrenome": "Yoshida",
-      "celular": "11999784706",
-      "email": "rafael@email.com",
-      "dataNascimento": "1992-03-10"
-    },
-    {
-      "id": "c660",
-      "nome": "Fulano",
-      "sobrenome": "Silva",
-      "celular": "(99) 99999-9999",
-      "dataNascimento": "2000-10-31T00:00:00.000Z",
-      "email": "email@email.com"
-    },
-    {
-      "id": "cc65",
-      "nome": "Fulaninho xd",
-      "celular": "(99) 99999-9999",
-      "dataNascimento": "2000-10-31T00:00:00.000Z",
-      "email": "email@email.com",
-      "telefoneConexao": "",
-      "whatsappConexao": "shfjhsfh",
-      "gmailConexao": "",
-      "emailPadraoConexao": "",
-      "linkedinConexao": "",
-      "teamsConexao": "",
-      "githubConexao": "Zosin0"
-    },
-    {
       "id": "b033",
       "nome": "Lucas Zoser Nunes Costa",
       "celular": "61999695902",
