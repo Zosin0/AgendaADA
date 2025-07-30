@@ -53,13 +53,6 @@ export class Formulario {
       celular: [null, [Validators.required]],
       dataNascimento: [null, [Validators.required]],
       email: [null, [Validators.required, Validators.email]],
-      telefoneConexao: [null],
-      whatsappConexao: [null],
-      gmailConexao: [null, [Validators.email, Validators.maxLength(255)]],
-      emailPadraoConexao: [null, [Validators.email, Validators.maxLength(255)]],
-      linkedinConexao: [null, [Validators.maxLength(255)]],
-      teamsConexao: [null, [Validators.maxLength(255)]],
-      githubConexao: [null, [Validators.maxLength(255)]],
     });
   }
 
@@ -71,7 +64,6 @@ export class Formulario {
       celular,
       dataNascimento,
       email,
-      conexoes
     } = this.contatoParaEditar;
 
     this.formulario.patchValue({
@@ -79,13 +71,6 @@ export class Formulario {
       celular: celular ?? '',
       dataNascimento: new Date(dataNascimento),
       email: email ?? '',
-      telefoneConexao: conexoes?.telefone ?? '',
-      whatsappConexao: conexoes?.whatsapp ?? '',
-      gmailConexao: conexoes?.gmail ?? '',
-      emailPadraoConexao: conexoes?.emailPadrao ?? '',
-      linkedinConexao: conexoes?.linkedin ?? '',
-      teamsConexao: conexoes?.teams ?? '',
-      githubConexao: conexoes?.github ?? ''
     });
   }
 
@@ -111,10 +96,6 @@ export class Formulario {
     }
 
     return undefined;
-  }
-
-  mostrarConexoes(): boolean {
-    return this.contatoParaEditar && this.contatoParaEditar.id ? true : false;
   }
 
   definirToolTipBtnSalvar(): string | null {
