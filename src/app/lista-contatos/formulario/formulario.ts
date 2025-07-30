@@ -3,6 +3,8 @@ import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Contato } from '../../shared/interface';
+import { ContatoService } from '../../core/contato-service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-formulario',
@@ -13,11 +15,14 @@ import { Contato } from '../../shared/interface';
 export class Formulario {
 
   @Input() contatoParaEditar?: Contato;
+  @Input() idContatoParaEditar?: string; // ID do contato para edição
 
   constructor(
     protected activeModal: NgbActiveModal,
     private fb: FormBuilder,
     private datePipe: DatePipe,
+    private contatoService: ContatoService,
+    private toastr: ToastrService
   ) { }
 
   formulario!: FormGroup;
@@ -95,10 +100,72 @@ export class Formulario {
   definirTituloFormulario(): string {
     return this.contatoParaEditar ? "Editar Contato" : "Criar Contato";
   }
+  definirTextoBotaoSalvar(): string {
+    return this.contatoParaEditar ? "Atualizar contato" : "Cadastrar contato";
+  }
 
   enviarDados(): void {
-    console.log(this.formatarData(this.formulario.get('dataNascimento')?.value));
-    console.log(this.formulario.get('nome')?.value);
-    // this.activeModal.close();
+    if (!this.formulario.valid) {
+      this.toastr.error('Formulário inválido. Verifique os campos.', 'Erro');
+      return;
+    }
+
+    // Preparar os dados do formulário
+    const dadosFormulario = this.formulario.value;
+    const contatoData: Contato = {
+      nome: dadosFormulario.nome,
+      sobrenome: dadosFormulario.sobrenome,
+      apelido: null, // Pode ser expandido futuramente
+      dataNascimento: this.formatarData(dadosFormulario.dataNascimento),
+      celular: dadosFormulario.celular,
+      email: dadosFormulario.email
+    };
+
+    if (this.contatoParaEditar && this.idContatoParaEditar) {
+      // Modo de edição - atualizar contato existente
+      this.atualizarContato(contatoData);
+    } else {
+      // Modo de criação - criar novo contato
+      this.criarContato(contatoData);
+    }
+  }
+  private atualizarContato(contato: Contato): void {
+    if (!this.idContatoParaEditar) {
+      this.toastr.error('ID do contato não encontrado.', 'Erro');
+      return;
+    }
+
+    const contatoAtualizado = {
+      ...contato,
+      id: this.idContatoParaEditar
+    };
+
+    this.contatoService.atualizarContato(this.idContatoParaEditar, contatoAtualizado).subscribe({
+      next: (contatoAtualizado) => {
+        this.toastr.success('Contato atualizado com sucesso!', 'Sucesso');
+        this.activeModal.close(contatoAtualizado); // Retorna o contato atualizado
+      },
+      error: (erro) => {
+        console.error('Erro ao atualizar contato:', erro);
+        this.toastr.error('Erro ao atualizar contato. Tente novamente.', 'Erro');
+      }
+    });
+  }private criarContato(contato: Contato): void {
+    // Gerar um ID único para o novo contato
+    const novoContato = {
+      ...contato,
+      id: Date.now().toString() // ID simples baseado em timestamp
+    };
+
+    this.contatoService.criarContato(novoContato).subscribe({
+      next: (contatoCriado) => {
+        this.toastr.success('Contato criado com sucesso!', 'Sucesso');
+        this.activeModal.close(contatoCriado); // Retorna o contato criado
+      },
+      error: (erro) => {
+        console.error('Erro ao criar contato:', erro);
+        this.toastr.error('Erro ao criar contato. Tente novamente.', 'Erro');
+      }
+    });
   }
 }

@@ -5,4 +5,6 @@ export interface Contato {
     dataNascimento: string;
     celular: string;
     email: string;
+    telefone?: string;   // <-- torne esses dois opcionais
+    whatsapp?: string;   // <-- assim eles não causam erro
 }

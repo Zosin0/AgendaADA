@@ -1,5 +1,6 @@
 import { LOCALE_ID, NgModule, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
@@ -63,6 +64,7 @@ export const MY_DATE_FORMATS = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideNgxMask(),
+    NgbActiveModal,
     provideHttpClient(),
     DatePipe,
     { provide: LOCALE_ID, useValue: 'pt-BR' },

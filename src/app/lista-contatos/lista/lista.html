@@ -1,4 +1,5 @@
 <div class="container">
+  <div class="header-section">
     <input
       type="text"
       placeholder="Pesquisar por qualquer campo..."
@@ -6,14 +7,30 @@
       (input)="filtrarContatos()"
       class="campo-pesquisa"
     />
+    <button class="btn btn-primary" (click)="criarNovoContato()">
+      Novo Contato
+    </button>
+  </div>
 
-    <ul class="lista-contatos">
-      <li *ngFor="let contato of contatosFiltrados" class="item-contato">
+  <ul class="lista-contatos">
+    <li *ngFor="let contato of contatosFiltrados" class="item-contato">
+      <div class="contato-info">
         <h3>{{ contato.nome }}</h3>
         <p><strong>Telefone:</strong> {{ contato.telefone }}</p>
         <p><strong>Email:</strong> {{ contato.email }}</p>
         <p><strong>Data de Nascimento:</strong> {{ contato.dataNascimento | date:'dd/MM/yyyy' }}</p>
-        <button (click)="abrirWhatsApp(contato.whatsapp)">WhatsApp</button>
-      </li>
-    </ul>
-  </div>
+      </div>
+      <div class="contato-acoes">
+        <button class="btn btn-success btn-sm" (click)="abrirWhatsApp(contato.whatsapp || '')">
+          WhatsApp
+        </button>
+        <button class="btn btn-warning btn-sm" (click)="editarContato(contato)">
+          Editar
+        </button>
+        <button class="btn btn-danger btn-sm" (click)="deletarContato(contato)">
+          Excluir
+        </button>
+      </div>
+    </li>
+  </ul>
+</div>
